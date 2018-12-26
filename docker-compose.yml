@@ -1,4 +1,4 @@
-version: '2'
+version: '3.3'
 services:
   gitlab:
     image: gitlab/gitlab-ce:9.5.8-ce.0
@@ -11,20 +11,18 @@ services:
       - "127.0.0.1:8082:80" # Access GitLab in your browser at http://127.0.0.1:8082
 
   redis-master:
-    image: redis:3.2
-    volumes:
-      - ./redis/sentinel.conf:/etc/redis/sentinel.conf.orig
-      - ./redis/entrypoint_master.sh:/entrypoint.sh
+    build:
+      context: ./redis
+      dockerfile: ./dockerfile_master
     command: /entrypoint.sh
     expose:
       - "26379" # Port for Redis Sentinel
       - "6379"  # Port for Redis
 
   redis-slave:
-    image: redis:3.2
-    volumes:
-      - ./redis/sentinel.conf:/etc/redis/sentinel.conf.orig
-      - ./redis/entrypoint_slave.sh:/entrypoint.sh
+    build:
+      context: ./redis
+      dockerfile: ./dockerfile_master
     command: /entrypoint.sh
     links:
       - redis-master
