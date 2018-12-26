@@ -1,0 +1,4 @@
+FROM redis:3.2
+
+COPY ./entrypoint_slave.sh /entrypoint.sh
+COPY ./sentinel.conf /etc/redis/sentinel.conf.orig

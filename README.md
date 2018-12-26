@@ -38,7 +38,7 @@ Use `docker-compose scale` to start as many slave Redis containers as you like.
 For example, to start four (4) Redis slaves, run:
 
 ```bash
-docker-compose scale redis-slave=4
+docker-compose up --scale redis-slave=4
 ```
 
 ### Testing Redis Sentinel
